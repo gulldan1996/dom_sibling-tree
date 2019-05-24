@@ -1,27 +1,23 @@
-let tree = document.getElementsByTagName('ul')[0];
+const treeList = document.querySelector('.tree');
+const treeListItem = treeList.getElementsByTagName('li');
 
-let treeLis = tree.getElementsByTagName('li');
-
-/* wrap all textNodes into spans */
-for (let i = 0; i < treeLis.length; i++) {
-  let li = treeLis[i];
-
-  let span = document.createElement('span');
+for (let i = 0; i < treeListItem.length; i++) {
+  const span = document.createElement('span');
+  let li = treeListItem[i];
   li.insertBefore(span, li.firstChild);
   span.appendChild(span.nextSibling);
 }
 
-/* catch clicks on whole tree */
-tree.onclick = function(event) {
-  let target = event.target;
+// console.log(treeList);
 
+treeList.addEventListener('click', (event) => {
+  target = event.target;
   if (target.tagName != 'SPAN') {
     return;
   }
-
-  /* now we know the SPAN is clicked */
-  let childrenContainer = target.parentNode.getElementsByTagName('ul')[0];
-  if (!childrenContainer) return; // no children
-
-  childrenContainer.hidden = !childrenContainer.hidden;
-}
+  let children = target.parentNode.getElementsByTagName('ul')[0];
+  if (!children) {
+       return;
+  }
+  children.hidden =  !children.hidden;
+});
